@@ -1,43 +1,29 @@
 
 # rewrite you graph database schema prompt here
 SCHEMA = """
-Node: MovieLabel: name (STRING), update_time (INTEGER)
-Node: Area: name (STRING), update_time (INTEGER)
-Node: Sound: name (STRING), update_time (INTEGER)
-Node: Lyricwriter: name (STRING), update_time (INTEGER)
-Node: Language: name (STRING), update_time (INTEGER)
-Node: Scene: name (STRING), update_time (INTEGER)
-Node: Instrument: name (STRING), update_time (INTEGER)
-Node: OriginalSound: name (STRING), update_time (INTEGER)
-Node: Label: name (STRING), update_time (INTEGER)
-Node: Theme: name (STRING), update_time (INTEGER)
-Node: Song: name (STRING), songid (STRING), update_time (INTEGER), releaseDate (STRING)
-Node: Festival: name (STRING), update_time (INTEGER)
-Node: Emotion: name (STRING), update_time (INTEGER)
-Node: Honour: name (STRING), update_time (INTEGER)
-Node: Album: albumid (STRING), name (STRING), update_time (INTEGER), releaseDate (STRING)
-Node: Composer: name (STRING), update_time (INTEGER)
-Node: Genre: name (STRING), update_time (INTEGER)
-Node: Actor: nameEN (STRING), actorid (STRING), gender (STRING), name (STRING), update_time (INTEGER)
-Node: Alias: name (STRING), update_time (INTEGER)
-Node: Age: name (STRING), update_time (INTEGER)
+Node Properties
+Book: bookId (STRING), name (STRING)  
+Author: name (STRING), authorId (STRING)  
+Press: pressId (STRING), name (STRING)  
+CLC: CLCId (STRING), name (STRING), number (STRING)  
+Language: languageId (STRING), name (STRING)  
+Year: yearId (STRING), name (STRING)  
+Topic: topicId (STRING), name (STRING)  
+Genre: genreId (STRING), name (STRING)  
+Tag: tagId (STRING), name (STRING)  
 
-Relationship: (:Song)-[:R_HasLabel]->(:Label)
-Relationship: (:Actor)-[:R_Alias]->(:Alias)
-Relationship: (:Actor)-[:R_ActorSong]->(:Song)
-Relationship: (:Actor)-[:R_ActorAlbum]->(:Album)
-Relationship: (:Actor)-[:R_RepresentSong]->(:Song)
-Relationship: (:Actor)-[:R_RepresentAlbum]->(:Album)
-Relationship: (:Album)-[:R_AlbumSong]->(:Song)
-Relationship: (:Composer)-[:R_ComposerSong]->(:Song)
-Relationship: (:Composer)-[:R_Alias]->(:Alias)
-Relationship: (:Lyricwriter)-[:R_LyricWriterSong]->(:Song)
-Relationship: (:Lyricwriter)-[:R_Alias]->(:Alias)
+Relationships
+(:Book)-[:R_BookTag]->(:Tag)  
+(:Book)-[:R_BookCLC]->(:CLC)  
+(:Book)-[:R_BookLanguage]->(:Language)  
+(:Book)-[:R_BookYear]->(:Year)  
+(:Book)-[:R_BookTopic]->(:Topic)  
+(:Book)-[:R_BookGenre]->(:Genre)  
+(:Author)-[:R_AuthorBook]->(:Book)  
+(:Press)-[:R_PressBook]->(:Book)  
+(:CLC)-[:R_Has_Sub]->(:CLC)  
 
-Relationship properties: R_AlbumSong: update_time (INTEGER)
-Relationship properties: R_ActorSong: update_time (INTEGER)
-Relationship properties: R_ActorAlbum: update_time (INTEGER)
-Relationship properties: R_HasLabel: update_time (INTEGER)
+Realationship Properties are none.
 """
 
 
@@ -46,6 +32,7 @@ PRE_MSG = f"""
             Use only the provided relationship types and properties.
             Do not use any other relationship types or properties that are not provided.
             If you cannot generate a Cypher statement based on the provided schema, explain the reason to the user.
+            You must return something in your every Cypher statement.
             If you want to get a high rating, any cypher statement that you generate should never go against the relations, nodes, and relations attributes that I've given you in the schema.
             Pay attention to the direction of the arrow in the relationship and don't have an arrow direction that violates the rules.
             Here is the schema:{SCHEMA}
@@ -57,6 +44,7 @@ CYPHER_GENERATION_PROMPT = PRE_MSG + """\n我的问题:"{query}"\n
         Write as many queries as you have questions.
         Do not write only one cypher statement if there are many questions.
         Do not include any explanations or apologies in your responses.
+        In your query statement, do not write statments like WHERE .... IN ...., because this is not a Cypher syntax.
         Do not respond to any questions that might ask anything else than for you to construct a Cypher statement.
         Do not include any text except the generated Cypher statement. This is very important if you want to get paid.
         Always provide enough context for an LLM to be able to generate valid response.

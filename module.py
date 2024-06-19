@@ -48,7 +48,7 @@ class CypherGenerator:
 
     根据提问, 生成对应的查询语句
     """
-    def __init__(self, limit = 8):
+    def __init__(self, limit = 10):
        """初始化Cypher语句生成器
 
        limit: 语句查询结果限制数
@@ -122,8 +122,7 @@ class CypherQuerier:
                 neo4jRes = self.__graph.execute_query(cyphers[0])
         else :#多个，循环处理
             for cypher in cyphers:
-                    neo4jRes = neo4jRes + self.__graph.execute_query(cypher)
-        print(neo4jRes)   
+                    neo4jRes = neo4jRes + self.__graph.execute_query(cypher) 
         return neo4jRes
     
 class Formatter:
