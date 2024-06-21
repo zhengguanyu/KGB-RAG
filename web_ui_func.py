@@ -5,7 +5,7 @@ import api
 # 清空对话
 def clear_chat():
     st.session_state.messages = [
-        {"role": "assistant", "content": "快来玩呀 :kissing_heart:"}
+        {"role": "assistant", "content": "快来问吧! :kissing_heart:"}
     ] 
     st.session_state.input = ""
     print(st.session_state.history_window)
@@ -84,7 +84,6 @@ def user_input():
                 with Input:
 
                     st.text_input("##### 想问点什么? :blush:",key="inputBar",value=st.session_state.input + st.session_state.voice_input)
-                    
                     st.session_state.input = st.session_state.inputBar
                     st.session_state.voice_input = ""
                 with submit:

@@ -1,29 +1,43 @@
 
 # rewrite you graph database schema prompt here
 SCHEMA = """
-Node Properties
-Book: bookId (STRING), name (STRING)  
-Author: name (STRING), authorId (STRING)  
-Press: pressId (STRING), name (STRING)  
-CLC: CLCId (STRING), name (STRING), number (STRING)  
-Language: languageId (STRING), name (STRING)  
-Year: yearId (STRING), name (STRING)  
-Topic: topicId (STRING), name (STRING)  
-Genre: genreId (STRING), name (STRING)  
-Tag: tagId (STRING), name (STRING)  
+Node: MovieLabel: name (STRING), update_time (INTEGER)
+Node: Area: name (STRING), update_time (INTEGER)
+Node: Sound: name (STRING), update_time (INTEGER)
+Node: Lyricwriter: name (STRING), update_time (INTEGER)
+Node: Language: name (STRING), update_time (INTEGER)
+Node: Scene: name (STRING), update_time (INTEGER)
+Node: Instrument: name (STRING), update_time (INTEGER)
+Node: OriginalSound: name (STRING), update_time (INTEGER)
+Node: Label: name (STRING), update_time (INTEGER)
+Node: Theme: name (STRING), update_time (INTEGER)
+Node: Song: name (STRING), songid (STRING), update_time (INTEGER), releaseDate (STRING)
+Node: Festival: name (STRING), update_time (INTEGER)
+Node: Emotion: name (STRING), update_time (INTEGER)
+Node: Honour: name (STRING), update_time (INTEGER)
+Node: Album: albumid (STRING), name (STRING), update_time (INTEGER), releaseDate (STRING)
+Node: Composer: name (STRING), update_time (INTEGER)
+Node: Genre: name (STRING), update_time (INTEGER)
+Node: Actor: nameEN (STRING), actorid (STRING), gender (STRING), name (STRING), update_time (INTEGER)
+Node: Alias: name (STRING), update_time (INTEGER)
+Node: Age: name (STRING), update_time (INTEGER)
 
-Relationships
-(:Book)-[:R_BookTag]->(:Tag)  
-(:Book)-[:R_BookCLC]->(:CLC)  
-(:Book)-[:R_BookLanguage]->(:Language)  
-(:Book)-[:R_BookYear]->(:Year)  
-(:Book)-[:R_BookTopic]->(:Topic)  
-(:Book)-[:R_BookGenre]->(:Genre)  
-(:Author)-[:R_AuthorBook]->(:Book)  
-(:Press)-[:R_PressBook]->(:Book)  
-(:CLC)-[:R_Has_Sub]->(:CLC)  
+Relationship: (:Song)-[:R_HasLabel]->(:Label)
+Relationship: (:Actor)-[:R_Alias]->(:Alias)
+Relationship: (:Actor)-[:R_ActorSong]->(:Song)
+Relationship: (:Actor)-[:R_ActorAlbum]->(:Album)
+Relationship: (:Actor)-[:R_RepresentSong]->(:Song)
+Relationship: (:Actor)-[:R_RepresentAlbum]->(:Album)
+Relationship: (:Album)-[:R_AlbumSong]->(:Song)
+Relationship: (:Composer)-[:R_ComposerSong]->(:Song)
+Relationship: (:Composer)-[:R_Alias]->(:Alias)
+Relationship: (:Lyricwriter)-[:R_LyricWriterSong]->(:Song)
+Relationship: (:Lyricwriter)-[:R_Alias]->(:Alias)
 
-Realationship Properties are none.
+Relationship properties: R_AlbumSong: update_time (INTEGER)
+Relationship properties: R_ActorSong: update_time (INTEGER)
+Relationship properties: R_ActorAlbum: update_time (INTEGER)
+Relationship properties: R_HasLabel: update_time (INTEGER)
 """
 
 
@@ -72,7 +86,7 @@ ANSWER_GENERATION_PROMPT_HUMAN =  """
                             NOTE:
                             若知识图谱的信息为None，则根据自身直接回答无需考虑知识图谱.
                             若知识图谱的信息帮助非常小，则根据自身直接回答无需考虑知识图谱.
-                            回答时不必指出获取的信息来源.
+                            回答时不必指出获取的知识图谱信息来自人类.
                             """
 
 REWRITE_QUERY_PROMPT =  """
@@ -84,6 +98,8 @@ REWRITE_QUERY_PROMPT =  """
                                 如果指代词具体化后与上下文中某一实体有较为密切的联系/关系,需要你做一定的处理,处理的两个例子:例如我们在上次对话聊到歌曲《XXX》的时候,上下文
                                 中说明了这首歌曲的作者YYY,当我接着提出"这首歌",你应该把"这首歌"变为"YYY的XXX";再例如我们在上次提到女人BBB，上下文中说明了这个人的丈夫是AAA
                                 当我接着提出"这个女人",你应该把"这个女人"变为"AAA的妻子BBB".
+                                指代词具体化还需要注意的是，当我提到"这些XX"，你需要根据上下文记忆把"这些XX"具体化为具体的每一项，这些代词指向的东西应该是不止一项的，
+                                你需要把"这些XX"改写为每一个名词或者定义词这样的东西上，然后改写就可以得到一系列名词或者定义词，请不要认为这很麻烦.
                                 当问题的句子结构,用语,询问目的等等不清晰,可进行改写.
                                 若原句清晰,无任何模糊词、指代词等等,则不需要改写,直接返回我的原问题即可.
                                 改写不能使得原意曲解.

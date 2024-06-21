@@ -57,7 +57,7 @@ left_settings.button("清空对话记录",on_click=clear_chat)
 
 if "messages" not in st.session_state.keys(): 
     st.session_state.messages = [
-        {"role": "assistant", "content": "快来玩呀 :kissing_heart:"}
+        {"role": "assistant", "content": "快来问吧! :kissing_heart:"}
     ] # 初始化聊天记录
 
 
