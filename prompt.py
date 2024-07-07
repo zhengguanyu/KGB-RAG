@@ -1,43 +1,11 @@
 
 # rewrite you graph database schema prompt here
 SCHEMA = """
-Node: MovieLabel: name (STRING), update_time (INTEGER)
-Node: Area: name (STRING), update_time (INTEGER)
-Node: Sound: name (STRING), update_time (INTEGER)
-Node: Lyricwriter: name (STRING), update_time (INTEGER)
-Node: Language: name (STRING), update_time (INTEGER)
-Node: Scene: name (STRING), update_time (INTEGER)
-Node: Instrument: name (STRING), update_time (INTEGER)
-Node: OriginalSound: name (STRING), update_time (INTEGER)
-Node: Label: name (STRING), update_time (INTEGER)
-Node: Theme: name (STRING), update_time (INTEGER)
-Node: Song: name (STRING), songid (STRING), update_time (INTEGER), releaseDate (STRING)
-Node: Festival: name (STRING), update_time (INTEGER)
-Node: Emotion: name (STRING), update_time (INTEGER)
-Node: Honour: name (STRING), update_time (INTEGER)
-Node: Album: albumid (STRING), name (STRING), update_time (INTEGER), releaseDate (STRING)
-Node: Composer: name (STRING), update_time (INTEGER)
-Node: Genre: name (STRING), update_time (INTEGER)
-Node: Actor: nameEN (STRING), actorid (STRING), gender (STRING), name (STRING), update_time (INTEGER)
-Node: Alias: name (STRING), update_time (INTEGER)
-Node: Age: name (STRING), update_time (INTEGER)
+Node: MovieLabel: xxx (STRING), xxx (INTEGER)
 
-Relationship: (:Song)-[:R_HasLabel]->(:Label)
-Relationship: (:Actor)-[:R_Alias]->(:Alias)
-Relationship: (:Actor)-[:R_ActorSong]->(:Song)
-Relationship: (:Actor)-[:R_ActorAlbum]->(:Album)
-Relationship: (:Actor)-[:R_RepresentSong]->(:Song)
-Relationship: (:Actor)-[:R_RepresentAlbum]->(:Album)
-Relationship: (:Album)-[:R_AlbumSong]->(:Song)
-Relationship: (:Composer)-[:R_ComposerSong]->(:Song)
-Relationship: (:Composer)-[:R_Alias]->(:Alias)
-Relationship: (:Lyricwriter)-[:R_LyricWriterSong]->(:Song)
-Relationship: (:Lyricwriter)-[:R_Alias]->(:Alias)
+Relationship: (:xxx)-[:xxx]->(:xxx)
 
-Relationship properties: R_AlbumSong: update_time (INTEGER)
-Relationship properties: R_ActorSong: update_time (INTEGER)
-Relationship properties: R_ActorAlbum: update_time (INTEGER)
-Relationship properties: R_HasLabel: update_time (INTEGER)
+Relationship properties: xxx: xxx (INTEGER)
 """
 
 
