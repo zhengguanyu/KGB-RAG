@@ -24,7 +24,7 @@ KGB-RAG是一个基于neo4j图数据库(或其它图数据库)的知识图谱检
 
 ## 介绍
 
-&ensp; KGB-RAG是一个基于[Langchain](https://github.com/langchain-ai/langchain)与[Streamlit](https://streamlit.io/)，不同于传统的知识图谱嵌入，它采用的抓取实体、从数据库中获取相关信息的方式，可以更好地获取到实体的上下文信息，并通过实体关系的推理，生成问答对。下面是一些关于KGB-RAG的主要功能：
+&ensp;KGB-RAG是一个基于[Langchain](https://github.com/langchain-ai/langchain)与[Streamlit](https://streamlit.io/)，不同于传统的知识图谱嵌入，它采用的抓取实体、从数据库中获取相关信息的方式，可以更好地获取到实体的上下文信息，并通过实体关系的推理，生成问答对。下面是一些关于KGB-RAG的主要功能：
 
 1. 能够采用图片、音频、文本多模态的输入方式进行提问，且不同模态互不冲突，可以用音频+文本的方式进行提问等.
 
@@ -56,7 +56,7 @@ KGB-RAG是一个基于neo4j图数据库(或其它图数据库)的知识图谱检
 
 ''输入问题(多种模态输入)->改写问题->生成查询语句->查询图谱->格式化数据->将问题与查询信息结合发给大模型->大模型结合材料和自身能力生成答案->输出答案。''
 
-<p align="center"><img src="image/Process.png" alt="framework" width="300"></p>
+<p align="center"><img src="image/Process.png" alt="framework"></p>
 
 &ensp;项目的实际核心就是五个器，见下解释，我们团队对它们进行了解耦和封装，体现在module与api两个py文件中。
 
