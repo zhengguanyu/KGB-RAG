@@ -1,9 +1,9 @@
-# KGB-RAG(Knowledge Graph-based Retrieval-Augmented Generation)
+# Knowledge Graph-based Retrieval Augmented Generation(KGB-RAG)
 
 <p align="center"><img src="image/logo.png" alt="logo" width="300"></p>
 
 
-KGB-RAG是一个基于neo4j图数据库和其他图数据库的知识图谱检索系统，它可以根据用户的自然语句提问，从原数据库获取相关实体信息，并通过知识图谱检索技术以及结合大模型自身能力来增强回答用户的自然语言提问。
+KGB-RAG是一个基于neo4j图数据库(或其它图数据库)的知识图谱检索式问答系统，能够根据自然语言、图片、语音多种形式的提问，从知识图谱(数据库)中获取相关实体信息，并通过知识图谱检索技术以及结合大模型自身能力来增强回答用户提问。
 
 ## 目录
 
